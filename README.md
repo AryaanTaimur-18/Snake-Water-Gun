@@ -124,11 +124,12 @@ Matching choices result in a draw.
 ## 📸 Screenshots
 
 
-```markdown
+markdown
 <img width="100%" alt="Screenshot 2026-06-19 160816" src="https://github.com" />
 
 
-```
+
+
 
 ---
 

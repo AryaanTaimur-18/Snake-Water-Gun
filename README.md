@@ -123,10 +123,9 @@ Matching choices result in a draw.
 
 ## 📸 Screenshots
 
-Add screenshots of the game here after deployment.
 
 ```markdown
-<img width="2844" height="1560" alt="image" src="https://github.com/user-attachments/assets/082a2e29-bde5-4a37-b8c1-0b2c48b3b559" />
+<img width="2844" height="1560" alt="Screenshot 2026-06-19 160816" src="https://github.com/user-attachments/assets/0c1120cb-5c8e-4d07-a423-163f55a94dd6" />
 
 ```
 

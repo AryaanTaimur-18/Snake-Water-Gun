@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snake Water Gun</title>
+<style>
+:root{
+--bg:#0d0f1a;--card:#161927;--card2:#1e2236;
+--text:#f0f2ff;--muted:#7880a0;
+--win:#3ecf8e;--lose:#ff5b5b;--draw:#f7c948;
+}
+*{box-sizing:border-box}
+body{
+margin:0;padding:30px;color:var(--text);
+background:var(--bg);font-family:Inter,Arial,sans-serif;
+display:flex;flex-direction:column;align-items:center;
+}
+h1{
+font-size:3rem;margin-bottom:10px;
+background:linear-gradient(135deg,#a78bfa,#6c63ff,#38bdf8);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+p{color:var(--muted)}
+.scorebar{display:flex;gap:12px;margin:25px 0}
+.card{
+background:var(--card);padding:15px 25px;border-radius:15px;
+text-align:center;min-width:100px;
+}
+.num{font-size:2rem;font-weight:bold}
+.arena{
+background:var(--card);
+padding:25px;border-radius:20px;
+width:min(550px,95%);
+text-align:center;
+}
+.emojis{
+display:flex;justify-content:space-around;
+font-size:60px;margin:15px 0;
+}
+.result{font-size:1.5rem;font-weight:bold;min-height:40px}
+.buttons{
+display:flex;gap:15px;margin-top:25px;
+}
+button{
+flex:1;border:none;border-radius:15px;
+background:var(--card);color:white;
+padding:18px;cursor:pointer;font-size:1.1rem;
+}
+button:hover{background:var(--card2)}
+.history{
+width:min(550px,95%);
+margin-top:20px;
+}
+.item{
+background:var(--card);
+padding:10px;margin:6px 0;
+border-radius:10px;
+}
+.win{color:var(--win)}
+.lose{color:var(--lose)}
+.draw{color:var(--draw)}
+</style>
+</head>
+<body>
+
+<h1>Snake · Water · Gun</h1>
+<p>Python decides the winner via Flask</p>
+
+<div class="scorebar">
+<div class="card">You<div id="you" class="num">0</div></div>
+<div class="card">Draws<div id="draw" class="num">0</div></div>
+<div class="card">CPU<div id="cpu" class="num">0</div></div>
+</div>
+
+<div class="arena">
+<div class="emojis">
+<span id="playerEmoji">🤔</span>
+<span>VS</span>
+<span id="cpuEmoji">❓</span>
+</div>
+
+<div id="result" class="result">Choose your weapon</div>
+
+<div class="buttons">
+<button onclick="play('S')">🐍 Snake</button>
+<button onclick="play('W')">💧 Water</button>
+<button onclick="play('G')">🔫 Gun</button>
+</div>
+</div>
+
+<div class="history" id="history"></div>
+
+<script>
+const EMOJIS={S:'🐍',W:'💧',G:'🔫'};
+let scores={you:0,cpu:0,draw:0};
+
+async function play(choice){
+
+document.getElementById("playerEmoji").textContent=EMOJIS[choice];
+document.getElementById("cpuEmoji").textContent="🎲";
+
+const response=await fetch('/play',{
+method:'POST',
+headers:{'Content-Type':'application/json'},
+body:JSON.stringify({choice})
+});
+
+const data=await response.json();
+
+document.getElementById("cpuEmoji").textContent=EMOJIS[data.comp];
+
+const result=document.getElementById("result");
+result.className="result "+data.result;
+
+if(data.result==="win"){
+result.textContent="🎉 You Win!";
+scores.you++;
+}
+else if(data.result==="lose"){
+result.textContent="😬 You Lose!";
+scores.cpu++;
+}
+else{
+result.textContent="🤝 Draw!";
+scores.draw++;
+}
+
+document.getElementById("you").textContent=scores.you;
+document.getElementById("cpu").textContent=scores.cpu;
+document.getElementById("draw").textContent=scores.draw;
+
+const item=document.createElement("div");
+item.className="item";
+item.textContent=`${EMOJIS[choice]} vs ${EMOJIS[data.comp]} → ${data.result.toUpperCase()}`;
+
+const history=document.getElementById("history");
+history.prepend(item);
+
+if(history.children.length>8){
+history.removeChild(history.lastChild);
+}
+}
+</script>
+
+</body>
+</html>

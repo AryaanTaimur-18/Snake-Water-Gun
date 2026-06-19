@@ -125,7 +125,8 @@ Matching choices result in a draw.
 
 
 ```markdown
-<img width="2844" height="1560" alt="Screenshot 2026-06-19 160816" src="https://github.com/user-attachments/assets/0c1120cb-5c8e-4d07-a423-163f55a94dd6" />
+<img width="100%" alt="Screenshot 2026-06-19 160816" src="https://github.com" />
+
 
 ```
 

@@ -121,14 +121,9 @@ Matching choices result in a draw.
 
 ---
 
-## 📸 Screenshots
+## 📸 Screenshot
 
-
-markdown
-<img width="100%" alt="Screenshot 2026-06-19 160816" src="https://github.com" />
-
-
-
+![Game Screenshot](screenshots/game.png)
 
 
 ---
